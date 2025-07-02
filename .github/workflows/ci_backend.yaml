@@ -22,3 +22,12 @@ jobs:
 
     - name: Run pytest
       run: poetry run pytest
+
+    - name: Build Docker image
+      run: docker build -t sentiment-analyzer .
+
+    - name: Run container and check health
+      run: |
+        docker run -d -p 8000:80 --name test-app sentiment-analyzer
+        sleep 5
+        curl --fail http://localhost:8000/sentiment?input=I+like+icecream || (docker logs test-app && exit 1)
