@@ -3,12 +3,17 @@ name = "psa"
 version = "0.1.0"
 description = ""
 authors = [
-    {name = "Matias Martinez",email = "matomartinez@gmail.com"}
+    {name = "Matias Martinez",email = "mm@gmail.ett"}
 ]
 readme = "README.md"
-requires-python = ">=3.10"
-dependencies = [
-]
+requires-python = ">=3.8"
+
+[tool.poetry.dependencies]
+transformers = "4.24.0"
+torch = "1.13.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^8.2"
 
 [tool.poetry]
 packages = [{include = "psa", from = "src"}]
