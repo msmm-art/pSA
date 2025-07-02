@@ -23,6 +23,12 @@ jobs:
     - name: Run pytest
       run: poetry run pytest
 
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v3
+      with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
     - name: Build Docker image
       run: docker build -t sentiment-analyzer .
 
@@ -31,3 +37,13 @@ jobs:
         docker run -d -p 8000:80 --name test-app sentiment-analyzer
         sleep 5
         curl --fail http://localhost:8000/sentiment?input=I+like+icecream || (docker logs test-app && exit 1)
+
+    - name: Tag and push Docker image with commit SHA
+      if: github.ref == 'refs/heads/main'
+      run: |
+        SHORT_SHA=${GITHUB_SHA::7}
+        docker tag sentiment-analyzer martinezmatias/sentiment-analyzer:$SHORT_SHA
+        docker push martinezmatias/sentiment-analyzer:$SHORT_SHA
+
+        docker tag sentiment-analyzer martinezmatias/sentiment-analyzer:latest
+        docker push martinezmatias/sentiment-analyzer:latest
