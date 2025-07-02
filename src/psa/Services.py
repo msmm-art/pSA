@@ -6,4 +6,6 @@ app = FastAPI()
 @app.get("/sentiment")
 def get_sentiment(input: str):
     result = SentimentAnalyzer.predictSentiment(input)
-    return {"input": input, "sentiment": result}
+    if result is None:
+        return {"error": "Failed to analyze sentiment"}
+    return result

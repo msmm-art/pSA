@@ -1,6 +1,18 @@
 import torch
 import transformers
 from transformers import DistilBertTokenizer, DistilBertForSequenceClassification
+from enum import Enum
+
+class SentimentType(Enum):
+    POSITIVE = "POSITIVE"
+    NEGATIVE = "NEGATIVE"
+
+    def __str__(self):
+        return self.value
+
+    def __repr__(self):
+        return self.value
+
 
 def predictSentiment(input:str = None, outputLogit:bool = False):
     print(f"Analyzing input {input}")
@@ -21,5 +33,5 @@ def predictSentiment(input:str = None, outputLogit:bool = False):
     predicted_class_id = logits.argmax().item()
     prediction = model.config.id2label[predicted_class_id]
     if outputLogit:
-        return prediction, logits
-    return prediction
+        return {"sentiment": prediction, "logits": logits}
+    return  {"sentiment": prediction}
