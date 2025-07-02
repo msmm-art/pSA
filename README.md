@@ -57,3 +57,22 @@ Then, I do a http invocation to the service
  curl "http://localhost:8000/sentiment?input=I+hate+summer"
 ```
 
+### Incorporating Docker
+
+I create a Dockerfile to containerize the application.
+The container is created with the command:
+
+```bash
+ docker build -t sentiment-analyzer .  
+```
+Then, I run the container with the command:
+
+```bash
+ docker run -p 8000:80 sentiment-analyzer
+```
+
+Again, we can invoke the service with the command:
+
+```bash
+curl "http://localhost:8000/sentiment?input=I+like+summer"
+```
