@@ -2,7 +2,7 @@ import torch
 import transformers
 from transformers import DistilBertTokenizer, DistilBertForSequenceClassification
 
-def predictSentiment(input = None, outputLogit = False):
+def predictSentiment(input:str = None, outputLogit:bool = False):
     print(f"Analyzing input {input}")
     tokenizer = DistilBertTokenizer.from_pretrained("distilbert-base-uncased-finetuned-sst-2-english")
     model = DistilBertForSequenceClassification.from_pretrained("distilbert-base-uncased-finetuned-sst-2-english")
