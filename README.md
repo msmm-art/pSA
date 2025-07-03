@@ -71,7 +71,7 @@ Then, I run the container with the command:
  docker run -p 8000:80 sentiment-analyzer
 ```
 
-Again, we can invoke the service with the following command, each with a different output:
+Again, I can invoke the service with the following command, each with a different output:
 
 ```bash
 curl "http://localhost:8000/sentiment?input=I+like+summer"
@@ -80,6 +80,33 @@ curl "http://localhost:8000/sentiment?input=I+hate+summer"
 
 ### Build the docker with the CI
 
-We also incorporate new steps in the CI to build the docker image and to run the container.
+I also incorporate new steps in the CI to build the docker image and to run the container.
 See the successful job [here](https://github.com/msmm-art/pSA/actions/runs/16031773702/job/45233891720)
 
+### Kubernetes
+
+I create the Kubernetes' deployment and service manifests.
+
+```
+kubectl apply -f k8s/deployment.yaml 
+kubectl apply -f k8s/service.yaml   
+```
+
+We can observe the status of the deployment (Pods and Services) with commands:
+
+```bash
+kubectl get pods
+kubectl get service
+```
+
+Now we can check the status of the deployment with the command:
+
+``` 
+curl "http://localhost:<PORT>/sentiment?input=BAD" 
+```
+
+The port <PORT> can be obtained with the command:
+
+```bash
+kubectl get svc sentiment-service
+```
