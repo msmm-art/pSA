@@ -1,4 +1,4 @@
-# Project pSA (Sentiment Analysis) by Matias Martinez
+# Project pSA (Sentiment Analysis) by M.Martinez
 
 ## Installation
 
@@ -9,6 +9,7 @@ This project requires poetry. If you don't have it installed, please install it 
 
 ````
 
+First, I create a new project with poetry. I name it `pSA` (short for Project Sentiment Analysis).
 
 ```commandline
 poetry new pSA
@@ -99,7 +100,8 @@ kubectl get pods
 kubectl get service
 ```
 
-Now we can check the status of the deployment with the command:
+To test locally the service, it is necessary that the service type is set to `NodePort` in the manifest rather than `LoadBalancer`.
+Then, I can check the status of the deployment with the command:
 
 ``` 
 curl "http://localhost:<PORT>/sentiment?input=BAD" 
@@ -109,4 +111,12 @@ The port <PORT> can be obtained with the command:
 
 ```bash
 kubectl get svc sentiment-service
+```
+(Please corroborate that the TYPE is `NodePort` and not LoadBalancer`) 
+
+To deploy it on AWS, then we can keep the TYPE `LoadBalancer`. Importantly, it is required to install the [AWS Load Balancer Controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.2/deploy/installation/).
+Then, the service is accessible via the external IP address  that can be also retrieved with the command `kubectl get svc sentiment-service`.
+
+``` 
+curl "http://<External-IP>:<PORT>/sentiment?input=GOOD" 
 ```

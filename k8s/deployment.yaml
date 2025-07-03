@@ -17,3 +17,10 @@ spec:
         image: martinezmatias/sentiment-analyzer:latest
         ports:
         - containerPort: 80
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "1Gi"
+            cpu: "1"
