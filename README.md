@@ -57,7 +57,7 @@ Then, I do a http invocation to the service
  curl "http://localhost:8000/sentiment?input=I+hate+summer"
 ```
 
-### Incorporating Docker
+### Incorporating Docker into the project
 
 I create a Dockerfile to containerize the application.
 The container is created with the command:
@@ -76,3 +76,9 @@ Again, we can invoke the service with the command:
 ```bash
 curl "http://localhost:8000/sentiment?input=I+like+summer"
 ```
+
+### Build the docker with the CI
+
+We also incorporate new steps in the CI to build the docker image and to run the container.
+See the successful job [here](https://github.com/msmm-art/pSA/actions/runs/16031773702/job/45233891720)
+
