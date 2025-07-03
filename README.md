@@ -71,10 +71,11 @@ Then, I run the container with the command:
  docker run -p 8000:80 sentiment-analyzer
 ```
 
-Again, we can invoke the service with the command:
+Again, we can invoke the service with the following command, each with a different output:
 
 ```bash
 curl "http://localhost:8000/sentiment?input=I+like+summer"
+curl "http://localhost:8000/sentiment?input=I+hate+summer" 
 ```
 
 ### Build the docker with the CI
